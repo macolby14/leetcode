@@ -27,24 +27,28 @@
  */
 
 function flatten(root: TreeNode | null): void {
-    helper(root);
+  helper(root);
 }
 
 //return the last node in the list
-function helper(node: TreeNode | null): TreeNode | null{
-    if(!node){return null;}
-    if(!node.left&&!node.right){return node;} //this node is the end of the linked list
-    const leftTail = helper(node.left);
-    const leftHead=node.left;
-    const rightTail = helper(node.right);
-    const rightHead=node.right;
-    
-    node.left=null;
-    
-    if(leftHead){
-        node.right=leftHead;
-        leftTail.right=rightHead;
-    }
-    
-    return rightTail ? rightTail : leftTail;
+function helper(node: TreeNode | null): TreeNode | null {
+  if (!node) {
+    return null;
+  }
+  if (!node.left && !node.right) {
+    return node;
+  } //this node is the end of the linked list
+  const leftTail = helper(node.left);
+  const leftHead = node.left;
+  const rightTail = helper(node.right);
+  const rightHead = node.right;
+
+  node.left = null;
+
+  if (leftHead) {
+    node.right = leftHead;
+    leftTail.right = rightHead;
+  }
+
+  return rightTail ? rightTail : leftTail;
 }

@@ -1,5 +1,5 @@
 function minPartitions(n: string): number {
-    /*
+  /*
     -if numbers are ascending, is easy... just need that many numbers
     987654321 -> Just need 9 1000000+100000+10-0
     999999999 -> Just neeed 1111111111 + 1111111 etc
@@ -24,6 +24,6 @@ function minPartitions(n: string): number {
     
     Just take the highest digit
     */
-    const c: number[] = n.split("").map(x=>parseInt(x,10));
-    return Math.max(...c);
-};
+  const c: number[] = n.split("").map((x) => parseInt(x, 10));
+  return Math.max(...c);
+}

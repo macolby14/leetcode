@@ -5,39 +5,42 @@
 */
 
 function uniquePathsWithObstacles(obstacleGrid: number[][]): number {
+  const M = obstacleGrid.length;
+  const N = obstacleGrid[0].length;
 
-    const M = obstacleGrid.length;
-    const N = obstacleGrid[0].length;
+  const dp: number[][] = new Array(M).fill(0).map(() => new Array(N).fill(0));
 
-    const dp: number[][] = new Array(M).fill(0).map(() => new Array(N).fill(0));
+  if (obstacleGrid[0][0] === 1) {
+    return 0;
+  }
+  dp[0][0] = 1;
 
-
-    if (obstacleGrid[0][0] === 1) { return 0; }
-    dp[0][0] = 1;
-
-    for (let i = 1; i < N; i++) {
-        dp[0][i] = dp[0][i - 1];
-        if (obstacleGrid[0][i] === 1) { dp[0][i] = 0; }
+  for (let i = 1; i < N; i++) {
+    dp[0][i] = dp[0][i - 1];
+    if (obstacleGrid[0][i] === 1) {
+      dp[0][i] = 0;
     }
+  }
 
-    for (let i = 1; i < M; i++) {
-        dp[i][0] = dp[i - 1][0];
-        if (obstacleGrid[i][0] === 1) { dp[i][0] = 0; }
+  for (let i = 1; i < M; i++) {
+    dp[i][0] = dp[i - 1][0];
+    if (obstacleGrid[i][0] === 1) {
+      dp[i][0] = 0;
     }
+  }
 
-
-    for (let i = 1; i < M; i++) {
-        for (let j = 1; j < N; j++) {
-            if (obstacleGrid[i][j] === 1) { dp[i][j] = 0; }
-            else { dp[i][j] = dp[i - 1][j] + dp[i][j - 1]; }
-        }
+  for (let i = 1; i < M; i++) {
+    for (let j = 1; j < N; j++) {
+      if (obstacleGrid[i][j] === 1) {
+        dp[i][j] = 0;
+      } else {
+        dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+      }
     }
+  }
 
-
-    return dp[M - 1][N - 1];
-};
-
-
+  return dp[M - 1][N - 1];
+}
 
 // /* Recurisve Approach with memoization
 //  - Depth first search to try all paths (only going down or right)
@@ -49,7 +52,6 @@ function uniquePathsWithObstacles(obstacleGrid: number[][]): number {
 //  - Can memoize the results
 //  - When returning the results for a square, save it in a cache to prevent a dfs if reaching this grid again
 // */
-
 
 // function uniquePathsWithObstacles(obstacleGrid: number[][]): number {
 
@@ -68,7 +70,6 @@ function uniquePathsWithObstacles(obstacleGrid: number[][]): number {
 
 //         if(!cache[row]){cache[row]=[];}
 //         cache[row][col]=sumPaths;
-
 
 //         return sumPaths;
 //     }
